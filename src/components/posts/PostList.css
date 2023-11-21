@@ -14,6 +14,32 @@
     margin-bottom: 1rem; 
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Places the header and button at opposite ends */
+    align-items: center; /* Vertically centers the content within the container */
+    padding: 10px; /* Add padding for spacing */
+    background-color: #f0f0f0; /* Add a background color to the container */
+}
+
+.post-header {
+    margin: 0; /* Remove default margin for the header */
+}
+
+.settings-button {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove button border */
+    padding: 10px 20px; /* Add padding to the button for spacing */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Add a pointer cursor on hover */
+}
+
+.settings-icon {
+    margin-right: 5px; /* Add some spacing between the icon and text */
+}
+
+
 .post-card {
     background-color: white;
     border-radius: 0.5rem; 
