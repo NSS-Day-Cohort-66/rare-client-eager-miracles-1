@@ -1,0 +1,49 @@
+.tag-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tag-title {
+    font-size: xx-large;
+    margin-bottom: 20px;
+}
+.tag-area {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 2px solid rgb(237, 175, 184);
+    height: auto;
+    width: 500px;
+    padding: 10px;
+    list-style: none;
+}
+.tag-label {
+    font-weight: bold;
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid rgb(237, 175, 184);
+    border-radius: 20px;
+}
+.tag-label:hover {
+    background-color: rgb(237, 175, 184);
+}
+.modal-box {
+    margin: 2px;
+}
+
+.settings-icon {
+    font-size: 18px;
+}
+.tags-box {
+    display: flex;
+    flex-direction: row;
+
+}
+.tag-add {
+    border: 2px solid black;
+    margin: 15px;
+    padding: 10px;
+    width: 450px;
+    height: 350px;
+}
