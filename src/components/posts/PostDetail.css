@@ -19,47 +19,19 @@
 
 .card-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 10px; /* Padding inside the header */
-}
-
-.settings-notification {
-    position: relative; /* For absolute positioning of the notification bubble */
 }
 
 .settings-icon {
     font-size: 24px; /* Larger icon size */
 }
 
-.notification-bubble {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 5px 10px; /* Padding inside the bubble */
-    font-size: 12px; /* Smaller font size for the bubble */
-}
-
-.post-title-section {
-    text-align: right; /* Align the title section to the right */
-}
-
 .post-title {
     font-size: 30px; /* Large font size for the post title */
     font-weight: bold;
+    text-align: center;
     margin: 0; /* Remove default margins */
-}
-
-.category-tag {
-    display: inline-block;
-    background-color: #eee;
-    padding: 5px 15px; /* Padding inside the tag */
-    border-radius: 20px; /* Rounded corners for the tag */
-    font-size: 12px; /* Smaller font size for the tag */
-    margin-top: 5px; /* Margin above the tag */
 }
 
 .post-image {
@@ -75,16 +47,11 @@
     padding: 10px; /* Padding inside this section */
 }
 
-.author {
-    font-size: 14px; /* Smaller font size for author */
-    color: #555; /* Darker grey for author text */
-}
-
 .comments-button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px; /* Padding inside the button */
+    padding: 8px 15px; /* Padding inside the button */
     border-radius: 20px; /* Rounded corners for the button */
     cursor: pointer; /* Cursor effect for button hover */
 }
@@ -111,4 +78,8 @@
 
 .reaction i {
     margin-right: 5px; /* Space between icon and count */
+}
+
+.settings-icon{
+    margin-left: 10px;
 }

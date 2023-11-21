@@ -33,7 +33,6 @@ export const PostDetail = () => {
                 <div className="post-card" key={chosenPost.id}>
                     <div className="card-header">
                         <div className="settings-notification">
-                            <i className="settings-icon fas fa-cog"></i>
                         </div>
                         <div className="post-title-section">
                             <h2 className="post-title">{chosenPost.title}</h2>
@@ -46,6 +45,9 @@ export const PostDetail = () => {
                     <p className="post-content">{chosenPost.content}</p>
                     <div className="card-footer">
                         <div className="reactions">
+                        <i className="settings-icon fas fa-smile"></i>
+                        <i className="settings-icon fas fa-frown"></i>
+                        <i className="settings-icon fas fa-heart"></i>
                         </div>
                     </div>
                 </div>
