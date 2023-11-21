@@ -7,14 +7,17 @@ export const AllTags = () => {
   const [newItem, setNewItem] = useState({
     label: "",
   });
-  const navigate = useNavigate();
 
-  const getAllTags = async() => {
-    return await fetch("http://localhost:8000/tags", {
+  const fetchAndSetTags = async () => {
+    let url = "http://localhost:8000/tags";
+
+    const response = await fetch(url, {
       headers: {
         Authorization: `Token ${localStorage.getItem("auth_token")}`,
       },
-    }).then((res) => res.json());
+    });
+    const tagArray = await response.json();
+    setTags(tagArray);
   };
 
   const postNewTag = async (event) => {
@@ -27,19 +30,19 @@ export const AllTags = () => {
       },
       body: JSON.stringify(newItem),
     });
-    await getAllTags()
-    navigate("/tags")
+    fetchAndSetTags();
+    
   };
+
   const handleInputChange = (e) => {
     const itemCopy = { ...newItem };
     itemCopy[e.target.name] = e.target.value;
     setNewItem(itemCopy);
+
   };
 
   useEffect(() => {
-    getAllTags().then((tagsArray) => {
-      setTags(tagsArray);
-    });
+    fetchAndSetTags();
   }, []);
 
   return (
@@ -64,22 +67,25 @@ export const AllTags = () => {
               );
             })}
           </div>
-          <form className="tag-add">
+          <div className="tag-add">
             <div className="tag-title">Would you like to add another Tag?!</div>
             <div>
-              <input
-                name="label"
-                type="text"
-                className="tag-input"
-                required
-                placeholder="Add a tag here"
-                onChange={handleInputChange}
-              />
-              <button className="submit-btn" onClick={postNewTag}>
+              <fieldset>
+                <input
+                  name="label"
+                  type="text"
+                  className="tag-input"
+                  required
+                  placeholder="Add a tag here"
+                  onChange={handleInputChange}
+                />
+              </fieldset>
+
+              <button className="button" onClick={postNewTag}>
                 Save
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
