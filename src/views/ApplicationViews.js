@@ -6,6 +6,8 @@ import { CategoryList } from "../components/categories/CategoryList";
 import { PostList } from "../components/posts/PostList";
 import { PostDetail } from "../components/posts/PostDetails";
 import { CreatePostForm } from "../components/posts/CreatePostForm";
+import { AllTags } from "../components/tags/AllTags"
+
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -17,6 +19,8 @@ export const ApplicationViews = ({ token, setToken }) => {
           <Route path="/" element={<PostList />} />
           <Route path="/:postId" element={<PostDetail />} />
           <Route path="/create" element={<CreatePostForm />} />
+          <Route path="/tags" element={<AllTags />}/>
+
 
           <Route
             path="/categories"
