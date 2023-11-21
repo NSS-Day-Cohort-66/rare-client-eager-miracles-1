@@ -1,0 +1,50 @@
+.comp-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15rem;
+  align-items: center;
+}
+
+.cat-list {
+  margin-top: 2rem;
+}
+
+.header {
+  font-size: 2rem;
+}
+
+.cat-item {
+  font-size: 1.3rem;
+  text-decoration: underline;
+  border: 1px solid black;
+  width: 22rem;
+  padding-left: 1rem;
+}
+
+.button {
+  margin: 1rem;
+  width: 7rem;
+}
+
+.cat-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 22rem;
+  height: 13rem;
+  margin-right: 1rem;
+  border: 1px solid black;
+  border-radius: 3rem;
+  padding: 1rem;
+}
+
+.cat-input {
+  width: 12rem;
+}

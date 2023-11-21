@@ -1,0 +1,85 @@
+.background-wrapper {
+    background-color: #fff; /* White background */
+    padding: 20px; /* Padding around the container */
+    font-family: Arial, sans-serif; /* Font family for the whole post */
+}
+
+.container {
+    max-width: 600px; /* Max width of the container */
+    margin: auto; /* Center the container */
+    border: 1px solid #ccc; /* Border around the container */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Ensures the child elements do not overflow */
+}
+
+.post-card {
+    background-color: #f9f9f9; /* Slightly off-white background for the post */
+    margin-bottom: 20px; /* Margin at the bottom of the post */
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    padding: 10px; /* Padding inside the header */
+}
+
+.settings-icon {
+    font-size: 24px; /* Larger icon size */
+}
+
+.post-title {
+    font-size: 30px; /* Large font size for the post title */
+    font-weight: bold;
+    text-align: center;
+    margin: 0; /* Remove default margins */
+}
+
+.post-image {
+    width: 50%; /* Full width of the container */
+    height: auto; /* Maintain aspect ratio */
+    background-color: #ddd; /* Placeholder color */
+}
+
+.author-comments {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; /* Padding inside this section */
+}
+
+.comments-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px; /* Padding inside the button */
+    border-radius: 20px; /* Rounded corners for the button */
+    cursor: pointer; /* Cursor effect for button hover */
+}
+
+.post-content {
+    padding: 10px; 
+}
+
+.card-footer {
+    padding: 10px; /* Padding inside the footer */
+    display: flex;
+    justify-content: flex-end; /* Align reaction icons to the right */
+}
+
+.reactions {
+    font-size: 16px; /* Size of the reaction icons */
+}
+
+.reaction {
+    margin-right: 10px; /* Space between reaction icons */
+    display: inline-flex;
+    align-items: center;
+}
+
+.reaction i {
+    margin-right: 5px; /* Space between icon and count */
+}
+
+.settings-icon{
+    margin-left: 10px;
+}
