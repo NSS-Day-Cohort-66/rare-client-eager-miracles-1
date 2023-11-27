@@ -5,10 +5,11 @@ import "./CreatePost.css"
 
 export const CreatePostForm = () => {
     const [categories, setCategories] = useState([])
-    const [formData, setFormData] = useState({
+    const [newItem, setNewItem] = useState({
         title: "",
         content: "",
         image_url: "",
+        categoryId: 0
     })
 
 
@@ -23,12 +24,36 @@ export const CreatePostForm = () => {
         setCategories(catData)
     }
 
-
     useEffect(() => {
         fetchCategories()
     }, [])
     
+
+    const handleInputChange = (e) => {
+        const itemCopy = { ...newItem };
+        itemCopy[e.target.name] = e.target.value;
+        setNewItem(itemCopy);
+      };
     
+      const handleInputChangeCategory = (e) => {
+        const itemCopy = { ...newItem };
+        itemCopy[e.target.name] = parseInt(e.target.value);
+        setNewItem(itemCopy);
+      };
+
+
+      const createNewPost = async (event) => {
+        event.preventDefault();
+        await fetch("http://localhost:8000/posts", {
+          method: "POST",
+          headers: {
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newItem),
+        });
+     // re render 
+      };
 
     return (
         <div className="create-post-container">
@@ -42,6 +67,7 @@ export const CreatePostForm = () => {
                         id="title"
                         name="title"
                         className="create-post-input"
+                        onChange={handleInputChange}
                         required
                     />
                 </div>
@@ -53,26 +79,28 @@ export const CreatePostForm = () => {
                         id="content"
                         name="content"
                         className="create-post-input"
+                        onChange={handleInputChange}
                         required
                     ></textarea>
                 </div>
 
                 {/* Input for Category */}
                 <div className="new-category">Category:</div>
-          <select
-            name="categoryId"
-            value={categories.id}
-            className="category-dropdown"
-          >
-            <option value={0}>Please select a category</option>
-            {categories.map((catObj) => {
-              return (
-                <option key={catObj.id} value={catObj.id}>
-                  {catObj.label}
-                </option>
-              );
-            })}
-          </select>
+                <select
+                    name="categoryId"
+                    value={categories.id}
+                    onChange={handleInputChangeCategory}
+                    className="category-dropdown"
+                >
+                    <option value={0}>Please select a category</option>
+                    {categories.map((catObj) => {
+                    return (
+                        <option key={catObj.id} value={catObj.id}>
+                        {catObj.label}
+                        </option>
+                    );
+                    })}
+                </select>
 
                 {/* Input for Header Image URL */}
                 <div>
@@ -82,11 +110,12 @@ export const CreatePostForm = () => {
                         id="imageUrl"
                         name="imageUrl"
                         className="create-post-input create-post-url-input"
+                        onChange={handleInputChange}
                     />
                 </div>
 
                 {/* Submit button to create the post */}
-                <button type="submit" className="create-post-button">Create Post</button>
+                <button type="submit" className="create-post-button" onClick={createNewPost}>Create Post</button>
             </form>
         </div>
     );
