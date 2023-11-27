@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import "./CreatePost.css"
+import { useNavigate } from "react-router-dom";
 
 
 
 export const CreatePostForm = () => {
+    const navigate = useNavigate()
     const [categories, setCategories] = useState([])
     const [newItem, setNewItem] = useState({
         title: "",
         content: "",
         image_url: "",
-        categoryId: 0
+        category: 0
     })
 
 
@@ -52,7 +54,7 @@ export const CreatePostForm = () => {
           },
           body: JSON.stringify(newItem),
         });
-     // re render 
+     navigate('/') 
       };
 
     return (
@@ -61,7 +63,7 @@ export const CreatePostForm = () => {
             <form className="create-post-form">
                 {/* Input for Title */}
                 <div>
-                    <label htmlFor="title" className="create-post-label">Title:</label>
+                    <label htmlFor="title" className="create-post-label">Title</label>
                     <input
                         type="text"
                         id="title"
@@ -71,26 +73,24 @@ export const CreatePostForm = () => {
                         required
                     />
                 </div>
-
                 {/* Input for Content */}
                 <div>
-                    <label htmlFor="content" className="create-post-label">Content:</label>
+                    <label htmlFor="content" className="create-post-label">Content</label>
                     <textarea
                         id="content"
                         name="content"
-                        className="create-post-input"
+                        className="create-post-input-content"
                         onChange={handleInputChange}
                         required
                     ></textarea>
                 </div>
-
                 {/* Input for Category */}
-                <div className="new-category">Category:</div>
+                <div className="new-category">Category</div>
                 <select
-                    name="categoryId"
+                    name="category"
                     value={categories.id}
                     onChange={handleInputChangeCategory}
-                    className="category-dropdown"
+                    className="create-post-input"
                 >
                     <option value={0}>Please select a category</option>
                     {categories.map((catObj) => {
@@ -101,14 +101,13 @@ export const CreatePostForm = () => {
                     );
                     })}
                 </select>
-
                 {/* Input for Header Image URL */}
                 <div>
-                    <label htmlFor="imageUrl" className="create-post-label">Header Image URL (optional):</label>
+                    <label htmlFor="image_url" className="create-post-label">Header Image URL</label>
                     <input
                         type="url"
-                        id="imageUrl"
-                        name="imageUrl"
+                        id="image_url"
+                        name="image_url"
                         className="create-post-input create-post-url-input"
                         onChange={handleInputChange}
                     />
