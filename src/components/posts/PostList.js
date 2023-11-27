@@ -20,11 +20,19 @@ export const PostList = () => {
         fetchAllPosts()
     }, [])
 
+    const btnToCreate = () => {
+        navigate('/create');
+    };
 
     return (
         <div className="background-wrapper">
             <div className="container">
-                <h1 className="post-header">Posts</h1>
+            <div className="header-container">
+            <h1 className="post-header">Posts</h1>
+            <button type="button" className="settings-button" onClick={btnToCreate}>
+                <i className="settings-icon fas fa-plus"></i>
+            </button>
+        </div>
                 {allPosts.map((post) => (
                     <div
                         key={post.id}
@@ -54,4 +62,4 @@ export const PostList = () => {
             </div>
         </div>
     );
-                    }    
+}    

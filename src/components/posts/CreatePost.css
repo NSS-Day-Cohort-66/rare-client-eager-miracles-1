@@ -1,0 +1,63 @@
+/* CreatePost.css */
+
+/* Container styles */
+.create-post-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+.create-post-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form input styles */
+.create-post-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-post-label {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.create-post-input {
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Button styles */
+.create-post-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Optional image URL input */
+.create-post-url-input {
+    border-color: #ccc;
+}
+
+/* Responsive styles (adjust as needed) */
+@media (max-width: 768px) {
+    .create-post-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+}
+
+/* Add these class names to your JSX elements in the component. */
