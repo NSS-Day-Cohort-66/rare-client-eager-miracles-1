@@ -54,13 +54,24 @@ export const NavBar = ({ token, setToken }) => {
           )}
         </div>
         <div className="navbar-start">
-          {
-            token
-              ?
-              <Link to="/tags" className="navbar-item">Tag Management</Link>
-              :
-              ""
-          }
+          {token ? (
+            <>
+              <Link to="/myposts" className="navbar-item">
+                My Posts
+              </Link>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="navbar-start">
+          {token ? (
+            <Link to="/tags" className="navbar-item">
+              Tag Management
+            </Link>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="navbar-end">
