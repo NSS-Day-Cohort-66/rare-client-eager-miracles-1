@@ -1,8 +1,33 @@
+import { useEffect, useState } from "react";
 import "./CreatePost.css"
 
 
 
 export const CreatePostForm = () => {
+    const [categories, setCategories] = useState([])
+    const [initPost, setInitPost] = useState({
+        title: "",
+        content: "",
+        image_url: "",
+    })
+
+
+    const fetchCategories = async() => {
+        let url = "http://localhost:8000/categories";
+        const response = await fetch(url, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("auth_token")}`,
+              },
+        })
+        const catData = await response.json()
+        setCategories(catData)
+    }
+
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
+    
     
 
     return (
@@ -33,16 +58,21 @@ export const CreatePostForm = () => {
                 </div>
 
                 {/* Input for Category */}
-                <div>
-                    <label htmlFor="category" className="create-post-label">Category:</label>
-                    <input
-                        type="text"
-                        id="category"
-                        name="category"
-                        className="create-post-input"
-                        required
-                    />
-                </div>
+                <div className="new-category">Category:</div>
+          <select
+            name="categoryId"
+            value={categories.id}
+            className="category-dropdown"
+          >
+            <option value={0}>Please select a category</option>
+            {categories.map((catObj) => {
+              return (
+                <option key={catObj.id} value={catObj.id}>
+                  {catObj.label}
+                </option>
+              );
+            })}
+          </select>
 
                 {/* Input for Header Image URL */}
                 <div>
