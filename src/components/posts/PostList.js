@@ -52,10 +52,6 @@ export const PostList = () => {
                                 </div>
                                 <img className="post-image" src={post.image_url} alt="Post" />
                             </div>
-                            <div className="card-footer">
-                                <span className="reactions">{post.reaction_count} reaction count</span>
-                                <div className="card-actions"></div>
-                            </div>
                         </div>
                     </div>
                 ))}

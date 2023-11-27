@@ -13,19 +13,25 @@
 /* Heading styles */
 .create-post-heading {
     font-size: 24px;
-    margin-bottom: 20px;
+    font-weight: bold;
+    margin-bottom: 24px;
     color: #333;
+    text-align: center;
 }
 
 /* Form input styles */
 .create-post-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .create-post-label {
+    display: flex;
+    justify-content: center;
     font-weight: bold;
     margin-bottom: 6px;
+    margin: 10px;
 }
 
 .create-post-input {
@@ -34,6 +40,17 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    width: 300px;
+}
+
+.create-post-input-content {
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    height: 150px;
+    width: 500px;
 }
 
 /* Button styles */
@@ -47,17 +64,4 @@
     cursor: pointer;
 }
 
-/* Optional image URL input */
-.create-post-url-input {
-    border-color: #ccc;
-}
 
-/* Responsive styles (adjust as needed) */
-@media (max-width: 768px) {
-    .create-post-container {
-        max-width: 100%;
-        padding: 10px;
-    }
-}
-
-/* Add these class names to your JSX elements in the component. */

@@ -38,6 +38,7 @@
     width: 50%; /* Full width of the container */
     height: auto; /* Maintain aspect ratio */
     background-color: #ddd; /* Placeholder color */
+    margin-top: 30px;
 }
 
 .author-comments {
