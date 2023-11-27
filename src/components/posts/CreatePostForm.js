@@ -5,7 +5,7 @@ import "./CreatePost.css"
 
 export const CreatePostForm = () => {
     const [categories, setCategories] = useState([])
-    const [initPost, setInitPost] = useState({
+    const [formData, setFormData] = useState({
         title: "",
         content: "",
         image_url: "",
