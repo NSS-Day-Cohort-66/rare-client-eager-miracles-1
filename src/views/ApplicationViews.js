@@ -10,6 +10,7 @@ import { AllTags } from "../components/tags/AllTags";
 import { MyPostList } from "../components/posts/MyPosts";
 
 export const ApplicationViews = ({ token, setToken }) => {
+  
   return (
     <>
       <Routes>

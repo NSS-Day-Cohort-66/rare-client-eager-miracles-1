@@ -13,17 +13,38 @@ export const PostList = () => {
 },
         })
         const posts = await response.json()
-        setAllPosts(posts)
+        const approvedPosts = posts
+        .filter((post) => post.approved === true)
+        .sort((a, b) => new Date(b.pub_date) - new Date(a.pub_date));
+      setAllPosts(approvedPosts);
     }
 
     useEffect(() => {
         fetchAllPosts()
     }, [])
 
+
     const btnToCreate = () => {
         navigate('/create');
     };
 
+    const deletePost = (post) => {
+        return fetch(`http://localhost:8000/posts/${post.id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+            "Content-Type": "application/json",
+          },
+        });
+      };
+
+      const handleDeletePost = (post) => {
+        deletePost(post).then(() => {
+          fetchAllPosts()
+        })
+      }
+    
+      
     return (
         <div className="background-wrapper">
             <div className="container">
@@ -51,6 +72,9 @@ export const PostList = () => {
                                     <span className="date">{post.pub_date}</span>
                                 </div>
                                 <img className="post-image" src={post.image_url} alt="Post" />
+                            </div>
+                            <div className="card-footer">
+                                <button className="reactions">Delete</button>
                             </div>
                         </div>
                     </div>
