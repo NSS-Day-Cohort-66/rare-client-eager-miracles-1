@@ -45,7 +45,6 @@ export const AllTags = () => {
     const itemCopy = { ...newItem };
     itemCopy[e.target.name] = e.target.value;
     setNewItem(itemCopy);
-
   };
 
   useEffect(() => {
