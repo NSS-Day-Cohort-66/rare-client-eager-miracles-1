@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Tags.css";
 import { useEffect, useState } from "react";
+import { deleteTag } from "../../managers/TagManagaer";
 
 export const AllTags = () => {
   const [tags, setTags] = useState([]);
@@ -34,6 +35,12 @@ export const AllTags = () => {
     
   };
 
+  const handleDelete = (tag) => {
+    deleteTag(tag).then(() => {
+      fetchAndSetTags()
+    })
+  }
+
   const handleInputChange = (e) => {
     const itemCopy = { ...newItem };
     itemCopy[e.target.name] = e.target.value;
@@ -58,7 +65,7 @@ export const AllTags = () => {
                     <button type="button" className="modal-box">
                       <i className="settings-icon fas fa-book"></i>
                     </button>
-                    <button type="button" className="modal-box">
+                    <button type="button" className="modal-box" onClick={() => {handleDelete(tag)}}>
                       <i className="settings-icon fas fa-trash"></i>
                     </button>
                     {tag.label}
