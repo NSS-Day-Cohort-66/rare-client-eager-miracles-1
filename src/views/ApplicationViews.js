@@ -9,14 +9,28 @@ import { CreatePostForm } from "../components/posts/CreatePostForm";
 import { AllTags } from "../components/tags/AllTags";
 import { MyPostList } from "../components/posts/MyPosts";
 
-export const ApplicationViews = ({ token, setToken }) => {
-  
+export const ApplicationViews = ({
+  token,
+  setToken,
+  userId,
+  setCurrentUserId,
+}) => {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route path="/register" element={<Register setToken={setToken} />} />
-        <Route element={<Authorized token={token} />}>
+        <Route
+          path="/login"
+          element={
+            <Login setToken={setToken} setCurrentUserId={setCurrentUserId} />
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Register setToken={setToken} setCurrentUserId={setCurrentUserId} />
+          }
+        />
+        <Route element={<Authorized token={token} userId={userId} />}>
           <Route path="/" element={<PostList />} />
           <Route path="/allposts" element={<PostList />} />
           <Route path="/:postId" element={<PostDetail />} />
