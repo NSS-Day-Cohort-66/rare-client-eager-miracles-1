@@ -1,0 +1,24 @@
+.reaction-buttons {
+  display: flex;
+  border: none;
+  background-color: none;
+}
+
+.reaction-button {
+  margin: 15px;
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+}
+
+.reaction-button :hover {
+  color: var(--col--1);
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.reaction-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
