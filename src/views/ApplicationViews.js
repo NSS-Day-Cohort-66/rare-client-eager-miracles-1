@@ -10,6 +10,7 @@ import { AllTags } from "../components/tags/AllTags"
 
 
 export const ApplicationViews = ({ token, setToken }) => {
+  
   return (
     <>
       <Routes>
