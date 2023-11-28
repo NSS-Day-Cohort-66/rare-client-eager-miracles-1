@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "./PostList.css";
 import { useNavigate } from "react-router-dom";
+import { deletePost } from "../../managers/PostManager";
+
 
 export const MyPostList = () => {
   const [myPosts, setMyPosts] = useState([]);
@@ -23,6 +25,21 @@ export const MyPostList = () => {
   const btnToCreate = () => {
     navigate("/create");
   };
+
+  const handleDeletePost = async (postId) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this post?");
+    if (!isConfirmed) {
+      return; // If user clicks 'Cancel', exit the function
+    }
+  
+    try {
+      await deletePost(postId);
+      setMyPosts(myPosts.filter(post => post.id !== postId));
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+  
 
   return (
     <div className="background-wrapper">
@@ -56,6 +73,17 @@ export const MyPostList = () => {
                   <span className="date">{post.pub_date}</span>
                 </div>
                 <img className="post-image" src={post.image_url} alt="Post" />
+              </div>
+              <div className="card-footer">
+        <button
+          className="delete-btn"
+          onClick={(e) => {
+            e.stopPropagation(); //Prevents user from being navigated to post details page after click away from window alert
+            handleDeletePost(post.id);
+          }}
+        >
+          Delete
+        </button>
               </div>
             </div>
           </div>

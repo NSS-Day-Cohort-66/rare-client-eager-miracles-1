@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react"
 import "./PostList.css"
 import { useNavigate } from "react-router-dom"
-import { deletePost, fetchAllPostsAndFilterByDate } from "../../managers/PostManager"
+import { fetchAllPostsAndFilterByDate } from "../../managers/PostManager"
 
 export const PostList = () => {
     const [allPosts, setAllPosts] = useState([])
@@ -12,21 +12,14 @@ export const PostList = () => {
           const approvedPosts = await fetchAllPostsAndFilterByDate();
           setAllPosts(approvedPosts);
         };
-        
         fetchFilteredPost();
-    
-        const handleDeletePost = (postId) => {
-          deletePost(postId).then(() => {
-            fetchFilteredPost(); 
-          });
-        };
       }, []); 
     
       const btnToCreate = () => {
         navigate('/create');
       };
     
-      
+    
     return (
         <div className="background-wrapper">
             <div className="container">
@@ -54,9 +47,6 @@ export const PostList = () => {
                                     <span className="date">{post.pub_date}</span>
                                 </div>
                                 <img className="post-image" src={post.image_url} alt="Post" />
-                            </div>
-                            <div className="card-footer">
-                                <button className="reactions">Delete</button>
                             </div>
                         </div>
                     </div>
