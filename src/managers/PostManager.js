@@ -1,24 +1,31 @@
-
 // define api url for posts
-const api_url = 'http://localhost:8000/posts'
+const api_url = "http://localhost:8000/posts";
 
-
-// get all post - unfiltered 
+// get all post - unfiltered
 export const getAllPosts = () => {
-    return fetch(`${api_url}`, {
-      headers: {
-        Authorization: `Token ${
-          JSON.parse(localStorage.getItem("auth_token")).token
-        }`
-      },
-    }).then((res) => res.json());
-  };
+  return fetch(`${api_url}`, {
+    headers: {
+      Authorization: `Token ${
+        JSON.parse(localStorage.getItem("auth_token")).token
+      }`,
+    },
+  }).then((res) => res.json());
+};
 
-// get all post - filtered by date and approved 
+export const fetchMyPosts = async () => {
+  const response = await fetch("http://localhost:8000/posts?user=current", {
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+    },
+  });
+  return response.json();
+};
+
+// get all post - filtered by date and approved
 export const fetchAllPostsAndFilterByDate = async () => {
   const response = await fetch(`${api_url}`, {
     headers: {
-      "Authorization": `Token ${localStorage.getItem("auth_token")}`,
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
     },
   });
   const posts = await response.json();
@@ -28,7 +35,7 @@ export const fetchAllPostsAndFilterByDate = async () => {
   return approvedPosts;
 };
 
-// get post by id 
+// get post by id
 export const getPostById = async (postId) => {
   let url = `${api_url}/${postId}`;
   const response = await fetch(url, {
@@ -63,5 +70,3 @@ export const deletePost = async (postId) => {
   });
   return response;
 };
-
-
