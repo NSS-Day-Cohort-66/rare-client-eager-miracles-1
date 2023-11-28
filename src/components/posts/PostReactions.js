@@ -20,16 +20,17 @@ export const PostReactions = () => {
 
   const addReactionToPost = (reactionId) => {
     const postReactionObject = {
-      post: chosenPost.id,
+      post: chosenPost?.id,
       reaction: reactionId,
     };
     createPostReaction(postReactionObject);
+    debugger;
   };
 
   useEffect(() => {
     fetchAndSetChosenPost(postId);
     fetchAndSetAllReactions();
-  }, [postId]);
+  }, []);
 
   return (
     <div className="reactions-background-wrapper">
@@ -40,7 +41,7 @@ export const PostReactions = () => {
             className="reaction-button"
             onClick={async () => {
               await addReactionToPost(reaction.id);
-              getPostById();
+              fetchAndSetChosenPost();
             }}
           >
             <img
