@@ -1,41 +1,25 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./CategoryList.css";
+import { fetchCategories, createCategory } from "../../managers/CatManager";
 
 export const CategoryList = () => {
-  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const initialCatState = {
     label: "",
   };
   const [category, updateCategory] = useState(initialCatState);
 
+  const fetchAndSetCategories = async () => {
+    const catArray = await fetchCategories();
+    setCategories(catArray);
+  };
+
   useEffect(() => {
     fetchAndSetCategories();
   }, []);
 
-  const fetchAndSetCategories = async () => {
-    let url = "http://localhost:8000/categories";
-
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-      },
-    });
-    const catArray = await response.json();
-
-    setCategories(catArray);
-  };
-
-  const createCategory = async (evt) => {
-    await fetch("http://localhost:8000/categories", {
-      method: "POST",
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(category),
-    });
+  const createAndRefreshCategories = async () => {
+    await createCategory(category);
     fetchAndSetCategories();
   };
 
@@ -74,7 +58,7 @@ export const CategoryList = () => {
               className="cat-input"
             />
           </fieldset>
-          <button onClick={createCategory} className="button">
+          <button onClick={createAndRefreshCategories} className="button">
             Create
           </button>
         </div>

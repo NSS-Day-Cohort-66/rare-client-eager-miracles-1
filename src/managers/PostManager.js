@@ -12,6 +12,15 @@ export const getAllPosts = () => {
   }).then((res) => res.json());
 };
 
+export const fetchMyPosts = async () => {
+  const response = await fetch("http://localhost:8000/posts?user=current", {
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+    },
+  });
+  return response.json();
+};
+
 // get all post - filtered by date and approved
 export const fetchAllPostsAndFilterByDate = async () => {
   const response = await fetch(`${api_url}`, {
