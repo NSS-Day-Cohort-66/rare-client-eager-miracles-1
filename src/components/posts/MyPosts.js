@@ -1,23 +1,18 @@
 import { useState, useEffect } from "react";
 import "./PostList.css";
 import { useNavigate } from "react-router-dom";
+import { fetchMyPosts } from "../../managers/PostManager";
 
 export const MyPostList = () => {
   const [myPosts, setMyPosts] = useState([]);
   const navigate = useNavigate();
 
-  const fetchMyPosts = async () => {
-    const response = await fetch("http://localhost:8000/posts?user=current", {
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-      },
-    });
-    const posts = await response.json();
-    setMyPosts(posts);
-  };
-
   useEffect(() => {
-    fetchMyPosts();
+    const fetchData = async () => {
+      const posts = await fetchMyPosts();
+      setMyPosts(posts);
+    };
+    fetchData();
   }, []);
 
   const btnToCreate = () => {
