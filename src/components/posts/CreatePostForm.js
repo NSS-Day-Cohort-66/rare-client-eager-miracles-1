@@ -1,7 +1,7 @@
 import { useEffect, useState} from "react";
 import "./CreatePost.css"
 import { useNavigate } from "react-router-dom";
-
+import { createNewPost } from "../../managers/PostManager";
 
 
 export const CreatePostForm = () => {
@@ -13,7 +13,6 @@ export const CreatePostForm = () => {
         image_url: "",
         category: 0
     })
-
 
     const fetchCategories = async() => {
         let url = "http://localhost:8000/categories";
@@ -44,18 +43,11 @@ export const CreatePostForm = () => {
       };
 
 
-      const createNewPost = async (event) => {
+      const handleSubmit = async (event) => {
         event.preventDefault();
-        await fetch("http://localhost:8000/posts", {
-          method: "POST",
-          headers: {
-            Authorization: `Token ${localStorage.getItem("auth_token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newItem),
-        });
-     navigate('/') 
-      };
+        await createNewPost(newItem); 
+        navigate('/');
+    };
 
     return (
         <div className="create-post-container">
@@ -114,7 +106,7 @@ export const CreatePostForm = () => {
                 </div>
 
                 {/* Submit button to create the post */}
-                <button type="submit" className="create-post-button" onClick={createNewPost}>Create Post</button>
+                <button type="submit" className="create-post-button" onClick={handleSubmit}>Create Post</button>
             </form>
         </div>
     );

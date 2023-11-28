@@ -8,16 +8,16 @@ export const PostList = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchFilteredPost = async () => {
           const approvedPosts = await fetchAllPostsAndFilterByDate();
           setAllPosts(approvedPosts);
         };
         
-        fetchData();
+        fetchFilteredPost();
     
         const handleDeletePost = (postId) => {
           deletePost(postId).then(() => {
-            fetchData(); 
+            fetchFilteredPost(); 
           });
         };
       }, []); 
