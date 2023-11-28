@@ -24,7 +24,6 @@ export const PostReactions = () => {
       reaction: reactionId,
     };
     createPostReaction(postReactionObject);
-    debugger;
   };
 
   useEffect(() => {

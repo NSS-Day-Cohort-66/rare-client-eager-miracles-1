@@ -2,26 +2,17 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./PostDetail.css";
 import { PostReactions } from "./PostReactions";
+import { getPostById } from "../../managers/PostManager";
 
 export const PostDetail = () => {
   const [chosenPost, setChosenPost] = useState([]);
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const getPostById = async () => {
-    let url = `http://localhost:8000/posts/${postId}`;
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-      },
-    });
-    const post = await response.json();
-    setChosenPost(post);
-  };
-
   useEffect(() => {
-    getPostById();
-  }, []);
+    getPostById(postId).then(setChosenPost);
+  }, [postId]);
+
 
   return (
     <div className="background-wrapper">
