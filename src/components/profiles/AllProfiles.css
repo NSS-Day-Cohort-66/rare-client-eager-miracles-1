@@ -1,0 +1,42 @@
+.all-profiles-container {
+  max-width: fit-content;
+  margin: auto;
+  text-align: center;
+}
+
+.user-header {
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.user-header-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; /* Vertically centers the content within the container */
+  padding: 10px; /* Add padding for spacing */
+  background-color: #f0f0f0; /* Add a background color to the container */
+}
+
+.users-container {
+  margin-top: 1rem;
+}
+
+.user-card {
+  display: flex;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #d2d6dc;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.user-image {
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
