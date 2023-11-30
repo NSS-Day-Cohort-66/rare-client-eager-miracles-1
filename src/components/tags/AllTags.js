@@ -1,7 +1,8 @@
 import "./Tags.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   deleteTag,
+  editTag,
   fetchAndSetTags,
   postNewTag,
 } from "../../managers/TagManagaer";
@@ -11,13 +12,20 @@ export const AllTags = () => {
   const [newItem, setNewItem] = useState({
     label: "",
   });
-  const [rerender, setRerender] = useState(false)
+  const [updatedTag, setUpdatedTag] = useState({
+      id: 0,
+      label: "",
+    })
+  const manageTags = useRef()
+
+  const getAndSetTags = async () => {
+    const tagArray = await fetchAndSetTags();
+    setTags(tagArray);
+  };
 
   useEffect(() => {
-    fetchAndSetTags().then((tagsArray) => {
-      setTags(tagsArray);
-    });
-  }, [rerender]);
+    getAndSetTags();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,13 +33,13 @@ export const AllTags = () => {
       label: newItem.label,
     };
     postNewTag(newTag).then(() => {
-      setRerender(!rerender)
+      getAndSetTags();
     });
   };
 
   const handleDelete = (tag) => {
     deleteTag(tag).then(() => {
-      setRerender(!rerender)
+      getAndSetTags();
     });
   };
 
@@ -41,6 +49,38 @@ export const AllTags = () => {
     setNewItem(itemCopy);
   };
 
+  const updateTag = async (event) => {
+    event.preventDefault();
+    const tagCopy = {
+      id: updatedTag.id,
+      label: updatedTag.label,
+    };
+    editTag(tagCopy).then(() => {
+      getAndSetTags();
+    });
+  };
+
+  const handleManageTags = () => {
+    if (manageTags.current) {
+      manageTags.current.showModal()
+    }
+  }
+
+  const handleCloseTags = () => {
+    if (manageTags.current) {
+      manageTags.current.close()
+    }
+  }
+
+  const handleTagChange = (event, tag) => {
+    const tagCopy = {
+      id: tag.id,
+      label: tag.label
+    };
+    tagCopy[event.target?.name] = event.target.value 
+    setUpdatedTag(tagCopy)
+  }
+
   return (
     <>
       <div className="tag-container">
@@ -49,14 +89,21 @@ export const AllTags = () => {
           <div className="tag-area">
             {tags?.map((tag) => {
               return (
-                <div key={tag.id}>
-                  <li className="tag-label">
-                    <button type="button" className="modal-box">
+                  <li className="tag-label" key={tag.id}>
+                    <button key={tag.id} type="button" className="modal-box" onClick={handleManageTags}>
                       <i className="settings-icon fas fa-book"></i>
                     </button>
+                    <dialog className="manage-tags" ref={manageTags}>
+                      <div className="tag-modal">
+                          <input type="text"  name="label" placeholder="Update Tag Here" onChange={() => handleTagChange(tag)} />
+                      </div>
+                      <div>
+                        <button className="save-button" onClick={updateTag}>Save Tag</button>
+                        <button className="exit-button" onClick={handleCloseTags}>Cancel</button>
+                      </div>
+                    </dialog>
                     <button
                       type="button"
-                      className="modal-box"
                       onClick={() => {
                         handleDelete(tag);
                       }}
@@ -65,7 +112,6 @@ export const AllTags = () => {
                     </button>
                     {tag.label}
                   </li>
-                </div>
               );
             })}
           </div>
@@ -93,3 +139,4 @@ export const AllTags = () => {
     </>
   );
 };
+
