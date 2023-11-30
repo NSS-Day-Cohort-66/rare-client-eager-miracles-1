@@ -12,11 +12,9 @@ export const AllTags = () => {
   const [newItem, setNewItem] = useState({
     label: "",
   });
-  const [updatedTag, setUpdatedTag] = useState({
-      id: 0,
-      label: "",
-    })
-  const manageTags = useRef()
+  const [updatedTag, setUpdatedTag] = useState({});
+  const [editTagLabel, setEditTagLabel] = useState({})
+  const manageTags = useRef();
 
   const getAndSetTags = async () => {
     const tagArray = await fetchAndSetTags();
@@ -52,56 +50,76 @@ export const AllTags = () => {
   const updateTag = async (event) => {
     event.preventDefault();
     const tagCopy = {
-      id: updatedTag.id,
-      label: updatedTag.label,
+      id: editTagLabel.id,
+      label: editTagLabel.label,
     };
-    editTag(tagCopy).then(() => {
+    await editTag(tagCopy).then(() => {
       getAndSetTags();
+      handleCloseTags();
+      setEditTagLabel("")
     });
   };
 
   const handleManageTags = () => {
     if (manageTags.current) {
-      manageTags.current.showModal()
+      manageTags.current.showModal();
     }
-  }
+  };
 
   const handleCloseTags = () => {
     if (manageTags.current) {
-      manageTags.current.close()
+      manageTags.current.close();
     }
-  }
+  };
 
-  const handleTagChange = (event, tag) => {
-    const tagCopy = {
-      id: tag.id,
-      label: tag.label
-    };
-    tagCopy[event.target?.name] = event.target.value 
-    setUpdatedTag(tagCopy)
-  }
+  const handleTagChange = (event) => {
+    const tagCopy = { ...tags };
+    tagCopy[event.target.name] = event.target.value;
+    setUpdatedTag(tagCopy);
+  };
 
   return (
     <>
+      <dialog className="manage-tags" ref={manageTags}>
+        <div className="tag-modal">
+          <fieldset>
+          <input
+          className="input-text"
+            onChange={(event) => {
+              const tagCopy = { ...editTagLabel };
+              tagCopy.label = event.target.value;
+              setEditTagLabel(tagCopy);
+            }}
+          />
+          </fieldset>
+        </div>
+        <div>
+          <button className="save-button" onClick={(event) => {
+                updateTag(event)}}>
+            Save Tag
+          </button>
+          <button className="exit-button" onClick={handleCloseTags}>
+            Cancel
+          </button>
+        </div>
+      </dialog>
+
       <div className="tag-container">
         <div className="tag-title">Tag Manager!</div>
         <div className="tags-box">
           <div className="tag-area">
             {tags?.map((tag) => {
               return (
+                <div>
                   <li className="tag-label" key={tag.id}>
-                    <button key={tag.id} type="button" className="modal-box" onClick={handleManageTags}>
+                    <button
+                      type="button"
+                      className="modal-box"
+                      onClick={() => {setEditTagLabel(tag); handleManageTags()}}
+                    >
                       <i className="settings-icon fas fa-book"></i>
                     </button>
-                    <dialog className="manage-tags" ref={manageTags}>
-                      <div className="tag-modal">
-                          <input type="text"  name="label" placeholder="Update Tag Here" onChange={() => handleTagChange(tag)} />
-                      </div>
-                      <div>
-                        <button className="save-button" onClick={updateTag}>Save Tag</button>
-                        <button className="exit-button" onClick={handleCloseTags}>Cancel</button>
-                      </div>
-                    </dialog>
+
                     <button
                       type="button"
                       onClick={() => {
@@ -112,6 +130,7 @@ export const AllTags = () => {
                     </button>
                     {tag.label}
                   </li>
+                </div>
               );
             })}
           </div>
@@ -139,4 +158,3 @@ export const AllTags = () => {
     </>
   );
 };
-
