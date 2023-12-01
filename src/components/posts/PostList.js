@@ -7,6 +7,7 @@ import { PostSearchBar } from "./PostSearchBar";
 export const PostList = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [renderedPosts, setRenderedPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
@@ -29,11 +30,15 @@ export const PostList = () => {
 
   useEffect(() => {
     if (searchTerm) {
-      setAllPosts(filteredPosts);
+      setRenderedPosts(filteredPosts);
     } else {
-      setAllPosts(allPosts);
+      setRenderedPosts(allPosts);
     }
-  }, [searchTerm, allPosts]);
+  }, [searchTerm, allPosts, filteredPosts]);
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
 
   const btnToCreate = () => {
     navigate("/create");
@@ -44,7 +49,7 @@ export const PostList = () => {
       <div className="container">
         <div className="header-container">
           <h1 className="post-header">Posts</h1>
-          <PostSearchBar setSearchTerm={setSearchTerm} />
+          <PostSearchBar handleSearch={handleSearch} />
           <button
             type="button"
             className="settings-button"
@@ -53,7 +58,7 @@ export const PostList = () => {
             <i className="settings-icon fas fa-plus"></i>
           </button>
         </div>
-        {allPosts.map((post) => (
+        {renderedPosts.map((post) => (
           <div
             key={post.id}
             className="book-card"
