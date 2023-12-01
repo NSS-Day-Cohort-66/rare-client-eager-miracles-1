@@ -15,6 +15,7 @@ export const PostList = () => {
     const fetchFilteredPost = async () => {
       const approvedPosts = await fetchAllPostsAndFilterByDate();
       setAllPosts(approvedPosts);
+      console.log("tickets set");
     };
     fetchFilteredPost();
   }, []);
@@ -24,6 +25,14 @@ export const PostList = () => {
       post.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredPosts(foundPosts);
+  }, [searchTerm, allPosts]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      setAllPosts(filteredPosts);
+    } else {
+      setAllPosts(allPosts);
+    }
   }, [searchTerm, allPosts]);
 
   const btnToCreate = () => {

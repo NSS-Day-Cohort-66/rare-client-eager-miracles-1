@@ -1,3 +1,5 @@
+import "./PostSearchBar.css";
+
 export const PostSearchBar = ({ setSearchTerm }) => {
   return (
     <div className="filter-bar">
