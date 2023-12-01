@@ -19,11 +19,20 @@ export const ProfileList = () => {
       <div className="user-header-container">
         <h1 className="user-header">Users</h1>
       </div>
-      <section className="users-container">
-        {allUsers.map((user) => (
-          <div className="user-card" key={user.id}>
-            <div className="user-name">{user.user.full_name}</div>
-            <div className="author">{user.user.user_profile_type}</div>
+
+      {allUsers.map((user) => (
+        <section
+          key={user.id}
+          className="users-container"
+          onClick={() => {
+            navigate(`${user.id}`);
+          }}
+        >
+          <div className="user-card">
+            <div className="user-details">{user.user.full_name}</div>
+            <div className="user-details">
+              {user.user.user_profile_type.toUpperCase()}
+            </div>
 
             <img
               className="user-image"
@@ -31,8 +40,8 @@ export const ProfileList = () => {
               alt="user avatar"
             />
           </div>
-        ))}
-      </section>
+        </section>
+      ))}
     </div>
   );
 };
