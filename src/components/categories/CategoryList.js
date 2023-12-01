@@ -38,7 +38,7 @@ export const CategoryList = () => {
     };
     await editThisCategory(catCopy).then(() => {
       fetchAndSetCategories();
-      handleCloseTags();
+      handleCloseCategory();
       setEditCategory("")
     });
   }
@@ -49,7 +49,7 @@ export const CategoryList = () => {
     }
   };
 
-  const handleCloseTags = () => {
+  const handleCloseCategory = () => {
     if (manageCategory.current) {
       manageCategory.current.close();
     }
@@ -113,7 +113,7 @@ export const CategoryList = () => {
                 updateThisCategory(event)}}>
             Save Tag
           </button>
-          <button className="exit-button" onClick={handleCloseTags}>
+          <button className="exit-button" onClick={handleCloseCategory}>
             Cancel
           </button>
         </div>
