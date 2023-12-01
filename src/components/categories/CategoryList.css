@@ -22,7 +22,6 @@
 .cat-item {
   font-size: 1.3rem;
   text-decoration: underline;
-  border: 1px solid black;
   width: 22rem;
   padding-left: 1rem;
 }
@@ -47,4 +46,17 @@
 
 .cat-input {
   width: 12rem;
+}
+
+.cat-label {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid rgb(237, 175, 184);
+    border-radius: 20px;
+}
+.cat-label:hover {
+    background-color: rgb(237, 175, 184);
 }
