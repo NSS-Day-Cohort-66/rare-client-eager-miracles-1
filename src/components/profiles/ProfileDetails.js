@@ -22,7 +22,7 @@ export const ProfileDetails = () => {
         <div className="user-card" key={profileDetails.id}>
           <div className="card-header">
             <div className="user-title-section">
-              <h2 className="user-title">{profileDetails.user.full_name}</h2>
+              <h2 className="user-title">{profileDetails.user?.full_name}</h2>
             </div>
             <img
               className="user-image"
@@ -31,10 +31,8 @@ export const ProfileDetails = () => {
             />
           </div>
 
-          <div className="user-email">{profileDetails.user.email}</div>
-          <div className="user-date-joined">
-            {profileDetails.user.created_on}
-          </div>
+          <div className="user-email">{profileDetails.user?.email}</div>
+          <div className="user-date-joined">{profileDetails.created_on}</div>
         </div>
       </div>
     </div>
