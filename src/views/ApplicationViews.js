@@ -40,8 +40,8 @@ export const ApplicationViews = ({
           <Route path="/tags" element={<AllTags />} />
           <Route path="/myposts" element={<MyPostList />} />
           <Route path="users">
-            <Route path="allusers" element={<ProfileList />} />
-            <Route path=":userId" element={<ProfileDetails />}></Route>
+            <Route path="allusers" element={<ProfileList userId={userId} />} />
+            <Route path=":userId" element={<ProfileDetails />} />
           </Route>
 
           <Route
