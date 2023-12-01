@@ -25,7 +25,7 @@ export const ProfileList = () => {
           key={user.id}
           className="users-container"
           onClick={() => {
-            navigate(`${user.id}`);
+            navigate(`/users/${user.id}`);
           }}
         >
           <div className="user-card">
