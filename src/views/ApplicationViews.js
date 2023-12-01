@@ -38,7 +38,7 @@ export const ApplicationViews = ({
           <Route path="/create" element={<CreatePostForm />} />
           <Route path="/tags" element={<AllTags />} />
           <Route path="/myposts" element={<MyPostList />} />
-          <Route path="/allusers" element={<ProfileList />} />
+          <Route path="/allusers" element={<ProfileList userId={userId}/>} />
 
           <Route
             path="/categories"
