@@ -8,6 +8,7 @@ import { PostDetail } from "../components/posts/PostDetails";
 import { CreatePostForm } from "../components/posts/CreatePostForm";
 import { AllTags } from "../components/tags/AllTags";
 import { MyPostList } from "../components/posts/MyPosts";
+import { ProfileList } from "../components/profiles/AllProfiles";
 
 export const ApplicationViews = ({
   token,
@@ -37,6 +38,7 @@ export const ApplicationViews = ({
           <Route path="/create" element={<CreatePostForm />} />
           <Route path="/tags" element={<AllTags />} />
           <Route path="/myposts" element={<MyPostList />} />
+          <Route path="/allusers" element={<ProfileList />} />
 
           <Route
             path="/categories"
