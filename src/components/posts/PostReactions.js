@@ -1,68 +1,46 @@
 import { useEffect, useState } from "react";
-import "./PostReactions.css";
 import { useParams } from "react-router-dom";
+import { getPostById } from "../../managers/PostManager";
+import { createPostReaction } from "../../managers/PostReactionManager";
+import { getAllReactions } from "../../managers/ReactionsManager";
+import "./PostReactions.css";
 
 export const PostReactions = () => {
   const [allReactions, setAllReactions] = useState([]);
   const [chosenPost, setChosenPost] = useState({});
   const { postId } = useParams();
 
-  const getPostById = async () => {
-    let url = `http://localhost:8000/posts/${postId}`;
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-      },
-    });
-    const post = await response.json();
-    setChosenPost(post);
+  const fetchAndSetChosenPost = () => {
+    getPostById(postId).then((postObj) => setChosenPost(postObj));
   };
 
-  const fetchAndSetAllReactions = async () => {
-    const response = await fetch("http://localhost:8000/reactions", {
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-      },
-    });
-    const reactions = await response.json();
-    setAllReactions(reactions);
+  const fetchAndSetAllReactions = () => {
+    getAllReactions().then((reactionsArray) => setAllReactions(reactionsArray));
+  };
+
+  const addReactionToPost = (reactionId) => {
+    const postReactionObject = {
+      post: chosenPost?.id,
+      reaction: reactionId,
+    };
+    createPostReaction(postReactionObject);
   };
 
   useEffect(() => {
-    getPostById().then(fetchAndSetAllReactions());
+    fetchAndSetChosenPost(postId);
+    fetchAndSetAllReactions();
   }, []);
 
-  const addPostReaction = async (reactionId) => {
-    const postReactionObject = {
-      post: chosenPost.id,
-      reaction: reactionId,
-    };
-
-    const postOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${localStorage.getItem("auth_token")}`,
-      },
-      body: JSON.stringify(postReactionObject),
-    };
-
-    const response = await fetch(
-      `http://localhost:8000/postreactions`,
-      postOptions
-    );
-  };
-
   return (
-    <div className="background-wrapper">
+    <div className="reactions-background-wrapper">
       <div className="reaction-buttons">
         {allReactions?.map((reaction) => (
           <button
             key={reaction.id}
             className="reaction-button"
             onClick={async () => {
-              await addPostReaction(reaction.id);
-              getPostById();
+              await addReactionToPost(reaction.id);
+              fetchAndSetChosenPost();
             }}
           >
             <img

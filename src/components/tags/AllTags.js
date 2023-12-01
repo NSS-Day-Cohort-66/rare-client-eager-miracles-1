@@ -1,7 +1,8 @@
 import "./Tags.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   deleteTag,
+  editTag,
   fetchAndSetTags,
   postNewTag,
 } from "../../managers/TagManagaer";
@@ -11,13 +12,18 @@ export const AllTags = () => {
   const [newItem, setNewItem] = useState({
     label: "",
   });
-  const [rerender, setRerender] = useState(false)
+  const [updatedTag, setUpdatedTag] = useState({});
+  const [editTagLabel, setEditTagLabel] = useState({})
+  const manageTags = useRef();
+
+  const getAndSetTags = async () => {
+    const tagArray = await fetchAndSetTags();
+    setTags(tagArray);
+  };
 
   useEffect(() => {
-    fetchAndSetTags().then((tagsArray) => {
-      setTags(tagsArray);
-    });
-  }, [rerender]);
+    getAndSetTags();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,13 +31,13 @@ export const AllTags = () => {
       label: newItem.label,
     };
     postNewTag(newTag).then(() => {
-      setRerender(!rerender)
+      getAndSetTags();
     });
   };
 
   const handleDelete = (tag) => {
     deleteTag(tag).then(() => {
-      setRerender(!rerender)
+      getAndSetTags();
     });
   };
 
@@ -41,22 +47,81 @@ export const AllTags = () => {
     setNewItem(itemCopy);
   };
 
+  const updateTag = async (event) => {
+    event.preventDefault();
+    const tagCopy = {
+      id: editTagLabel.id,
+      label: editTagLabel.label,
+    };
+    await editTag(tagCopy).then(() => {
+      getAndSetTags();
+      handleCloseTags();
+      setEditTagLabel("")
+    });
+  };
+
+  const handleManageTags = () => {
+    if (manageTags.current) {
+      manageTags.current.showModal();
+    }
+  };
+
+  const handleCloseTags = () => {
+    if (manageTags.current) {
+      manageTags.current.close();
+    }
+  };
+
+  const handleTagChange = (event) => {
+    const tagCopy = { ...tags };
+    tagCopy[event.target.name] = event.target.value;
+    setUpdatedTag(tagCopy);
+  };
+
   return (
     <>
+      <dialog className="manage-tags" ref={manageTags}>
+        <div className="tag-modal">
+          <fieldset>
+          <input
+          className="input-text"
+            onChange={(event) => {
+              const tagCopy = { ...editTagLabel };
+              tagCopy.label = event.target.value;
+              setEditTagLabel(tagCopy);
+            }}
+          />
+          </fieldset>
+        </div>
+        <div>
+          <button className="save-button" onClick={(event) => {
+                updateTag(event)}}>
+            Save Tag
+          </button>
+          <button className="exit-button" onClick={handleCloseTags}>
+            Cancel
+          </button>
+        </div>
+      </dialog>
+
       <div className="tag-container">
         <div className="tag-title">Tag Manager!</div>
         <div className="tags-box">
           <div className="tag-area">
             {tags?.map((tag) => {
               return (
-                <div key={tag.id}>
-                  <li className="tag-label">
-                    <button type="button" className="modal-box">
-                      <i className="settings-icon fas fa-book"></i>
-                    </button>
+                <div>
+                  <li className="tag-label" key={tag.id}>
                     <button
                       type="button"
                       className="modal-box"
+                      onClick={() => {setEditTagLabel(tag); handleManageTags()}}
+                    >
+                      <i className="settings-icon fas fa-book"></i>
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={() => {
                         handleDelete(tag);
                       }}

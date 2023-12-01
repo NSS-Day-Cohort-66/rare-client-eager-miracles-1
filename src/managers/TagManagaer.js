@@ -8,15 +8,14 @@ export const deleteTag = (tag) => {
     });
   };
 
-export const editTag = (tag) => {
-  return fetch(`http://localhost:8000/tags/${tag.id}`, {
+export const editTag = async (tag) => {
+  await fetch(`http://localhost:8000/tags/${tag.id}`, {
     method: "PUT",
     headers: {
       Authorization: `Token ${localStorage.getItem("auth_token")}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(tag)
-  }).then((res) => res.json());
+    body: JSON.stringify(tag)})
 };
 
 export const fetchAndSetTags = () => {
