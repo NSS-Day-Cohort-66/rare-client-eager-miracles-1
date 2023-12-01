@@ -9,6 +9,7 @@ import { CreatePostForm } from "../components/posts/CreatePostForm";
 import { AllTags } from "../components/tags/AllTags";
 import { MyPostList } from "../components/posts/MyPosts";
 import { ProfileList } from "../components/profiles/AllProfiles";
+import { ProfileDetails } from "../components/profiles/ProfileDetails";
 
 export const ApplicationViews = ({
   token,
@@ -38,7 +39,10 @@ export const ApplicationViews = ({
           <Route path="/create" element={<CreatePostForm />} />
           <Route path="/tags" element={<AllTags />} />
           <Route path="/myposts" element={<MyPostList />} />
-          <Route path="/allusers" element={<ProfileList userId={userId}/>} />
+          <Route path="users">
+            <Route path="allusers" element={<ProfileList userId={userId} />} />
+            <Route path=":userId" element={<ProfileDetails />} />
+          </Route>
 
           <Route
             path="/categories"
