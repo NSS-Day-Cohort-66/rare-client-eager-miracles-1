@@ -72,11 +72,6 @@ export const AllTags = () => {
     }
   };
 
-  const handleTagChange = (event) => {
-    const tagCopy = { ...tags };
-    tagCopy[event.target.name] = event.target.value;
-    setUpdatedTag(tagCopy);
-  };
 
   return (
     <>

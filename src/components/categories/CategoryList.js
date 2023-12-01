@@ -1,6 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./CategoryList.css";
-import { fetchCategories, createCategory } from "../../managers/CatManager";
+import {
+  fetchCategories,
+  createCategory,
+  deleteCategory,
+  editThisCategory,
+} from "../../managers/CatManager";
 
 export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -8,6 +13,8 @@ export const CategoryList = () => {
     label: "",
   };
   const [category, updateCategory] = useState(initialCatState);
+  const [editCategory, setEditCategory] = useState({});
+  const manageCategory = useRef();
 
   const fetchAndSetCategories = async () => {
     const catArray = await fetchCategories();
@@ -23,13 +30,64 @@ export const CategoryList = () => {
     fetchAndSetCategories();
   };
 
+  const updateThisCategory = async (event) => {
+    event.preventDefault();
+    const catCopy = {
+      id: editCategory.id,
+      label: editCategory.label,
+    };
+    await editThisCategory(catCopy).then(() => {
+      fetchAndSetCategories();
+      handleCloseTags();
+      setEditCategory("")
+    });
+  }
+
+  const handleManageCat = () => {
+    if (manageCategory.current) {
+      manageCategory.current.showModal();
+    }
+  };
+
+  const handleCloseTags = () => {
+    if (manageCategory.current) {
+      manageCategory.current.close();
+    }
+  };
+
+  const handleDelete = (cat) => {
+    deleteCategory(cat).then(() => {
+      fetchAndSetCategories();
+    });
+  };
+
   const displayCategories = () => {
     if (categories && categories.length) {
-      return categories.map((cat) => (
+      return categories.map((cat) => {
+        return(
         <div key={cat.id}>
+          <button
+            type="button"
+            className="modal-box"
+            onClick={() => {
+              setEditCategory(cat);
+              handleManageCat();
+            }}
+          >
+            <i className="settings-icon fas fa-book"></i>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              handleDelete(cat);
+            }}
+          >
+            <i className="settings-icon fas fa-trash"></i>
+          </button>
           <div className="cat-item">{cat.label}</div>
         </div>
-      ));
+      )});
     }
 
     return <h3>Loading Categories...</h3>;
@@ -37,6 +95,30 @@ export const CategoryList = () => {
 
   return (
     <>
+          <dialog className="manage-tags" ref={manageCategory}>
+        <div className="tag-modal">
+          <fieldset>
+          <input
+          className="input-text"
+            onChange={(event) => {
+              const tagCopy = { ...editCategory };
+              tagCopy.label = event.target.value;
+              setEditCategory(tagCopy);
+            }}
+          />
+          </fieldset>
+        </div>
+        <div>
+          <button className="save-button" onClick={(event) => {
+                updateThisCategory(event)}}>
+            Save Tag
+          </button>
+          <button className="exit-button" onClick={handleCloseTags}>
+            Cancel
+          </button>
+        </div>
+      </dialog>
+
       <div className="comp-container">
         <div className="categories">
           <span className="header">Categories</span>
