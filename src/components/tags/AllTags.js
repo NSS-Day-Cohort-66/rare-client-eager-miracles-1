@@ -105,23 +105,24 @@ export const AllTags = () => {
           <div className="tag-area">
             {tags?.map((tag) => {
               return (
-                <div>
+                <div key={tag.id}>
                   <li className="tag-label" key={tag.id}>
                     <button
                       type="button"
-                      className="modal-box"
+                      // className="edit-box"
+                      className="settings-icon fas fa-book"
                       onClick={() => {setEditTagLabel(tag); handleManageTags()}}
                     >
-                      <i className="settings-icon fas fa-book"></i>
                     </button>
 
                     <button
                       type="button"
+                      // className="delete-box"
+                      className="settings-icon fas fa-trash"
                       onClick={() => {
                         handleDelete(tag);
                       }}
                     >
-                      <i className="settings-icon fas fa-trash"></i>
                     </button>
                     {tag.label}
                   </li>

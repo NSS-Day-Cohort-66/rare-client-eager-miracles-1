@@ -66,26 +66,26 @@ export const CategoryList = () => {
       return categories.map((cat) => {
         return(
         <div key={cat.id}>
+          <li className="cat-label">
           <button
             type="button"
-            className="modal-box"
+            className="settings-icon fas fa-book"
             onClick={() => {
               setEditCategory(cat);
               handleManageCat();
             }}
           >
-            <i className="settings-icon fas fa-book"></i>
           </button>
 
           <button
             type="button"
+            className="settings-icon fas fa-trash"
             onClick={() => {
               handleDelete(cat);
             }}
           >
-            <i className="settings-icon fas fa-trash"></i>
           </button>
-          <div className="cat-item">{cat.label}</div>
+          <div className="cat-item">{cat.label}</div></li>
         </div>
       )});
     }
